@@ -568,7 +568,7 @@ public class Filler {
             final String blogTitle = preference.getString(Preference.BLOG_TITLE);
 
             dataModel.put(Preference.BLOG_TITLE, blogTitle);
-            dataModel.put("blogHost", Latkes.getServerHost() + ":" + Latkes.getServerPort());
+            dataModel.put("blogHost", Latkes.getStaticServerHost() + ":" + Latkes.getStaticServerPort());
 
             dataModel.put(Common.VERSION, SoloServletListener.VERSION);
             dataModel.put(Common.STATIC_RESOURCE_VERSION, Latkes.getStaticResourceVersion());

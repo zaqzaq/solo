@@ -41,9 +41,7 @@
             &nbsp; &nbsp; 
             <a title="${logoutLabel}" class="icon-logout" href="${logoutURL}"></a>
             <#else>
-            <a title="${loginLabel}" href="${loginURL}" class="icon-login"></a>
             &nbsp; &nbsp; 
-            <a href="${servePath}/register" title="${registerLabel}" class="icon-register"></a>
             </#if> &nbsp; &nbsp; 
             <a rel="alternate" href="${servePath}/blog-articles-rss.do" title="${subscribeLabel}" class="icon-rss"></a>
         </footer>

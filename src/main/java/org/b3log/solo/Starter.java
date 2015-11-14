@@ -68,7 +68,7 @@ public final class Starter {
 
         final ResourceBundle latke = ResourceBundle.getBundle("latke");
 
-        final int port = Integer.valueOf(latke.getString("serverPort"));
+        final int port = Integer.valueOf(latke.getString("port"));
         String contextPath = latke.getString("contextPath");
         if (Strings.isEmptyOrNull(contextPath)) {
             contextPath = "/";

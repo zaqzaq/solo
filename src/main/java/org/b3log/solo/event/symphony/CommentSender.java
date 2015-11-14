@@ -114,7 +114,7 @@ public final class CommentSender extends AbstractEventListener<JSONObject> {
             requestJSONObject.put("clientVersion", SoloServletListener.VERSION);
             requestJSONObject.put("clientRuntimeEnv", Latkes.getRuntimeEnv().name());
             requestJSONObject.put("clientName", "B3log Solo");
-            requestJSONObject.put("clientHost", Latkes.getServerHost() + ":" + Latkes.getServerPort());
+            requestJSONObject.put("clientHost", Latkes.getStaticServerHost() + ":" + Latkes.getStaticServerPort());
             requestJSONObject.put("clientAdminEmail", preference.optString(Preference.ADMIN_EMAIL));
             requestJSONObject.put("userB3Key", preference.optString(Preference.KEY_OF_SOLO));
 
