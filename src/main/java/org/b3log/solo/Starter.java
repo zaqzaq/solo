@@ -19,11 +19,17 @@ import java.awt.Desktop;
 import java.io.File;
 import java.net.URI;
 import java.util.ResourceBundle;
+
 import org.b3log.latke.logging.Logger;
 import org.b3log.latke.util.Strings;
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.log.Slf4jLog;
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 /**
@@ -74,7 +80,11 @@ public final class Starter {
             contextPath = "/";
         }
 
-        Server server = new Server(port);
+        QueuedThreadPool threadPool = new QueuedThreadPool();  
+        threadPool.setMinThreads(10);  
+        threadPool.setMaxThreads(1000);
+        Server server = new Server(threadPool);
+        
         WebAppContext root = new WebAppContext();
 
         root.setContextPath(contextPath);
@@ -83,8 +93,21 @@ public final class Starter {
 
         server.setHandler(root);
 
+        
+        ServerConnector connector = new ServerConnector(server,4,4);
+        connector.setReuseAddress(true);
+        connector.setIdleTimeout(3000);
+        connector.setAcceptQueueSize(100);
+//        connector.setAcceptorPriorityDelta(2);
+        connector.setPort(port);
+        connector.setStopTimeout(30000);
+        
+        connector.close();
+        
+        server.setConnectors(new Connector[]{connector});;
+        
         server.start();
-
+        
         final String scheme = latke.getString("serverScheme");
         final String host = latke.getString("serverHost");
 
