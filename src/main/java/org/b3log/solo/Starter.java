@@ -81,8 +81,8 @@ public final class Starter {
         }
 
         QueuedThreadPool threadPool = new QueuedThreadPool();  
-        threadPool.setMinThreads(10);  
-        threadPool.setMaxThreads(1000);
+        threadPool.setMinThreads(1);  
+        threadPool.setMaxThreads(Integer.valueOf(latke.getString("maxThreads")));
         Server server = new Server(threadPool);
         
         WebAppContext root = new WebAppContext();
@@ -96,18 +96,18 @@ public final class Starter {
         
         ServerConnector connector = new ServerConnector(server,4,4);
         connector.setReuseAddress(true);
-        connector.setIdleTimeout(3000);
-        connector.setAcceptQueueSize(100);
+        connector.setIdleTimeout(Long.valueOf(latke.getString("idleTimeout")));
+        connector.setAcceptQueueSize(Integer.valueOf(latke.getString("acceptQueueSize")));
 //        connector.setAcceptorPriorityDelta(2);
         connector.setPort(port);
-        connector.setStopTimeout(30000);
+//        connector.setStopTimeout(30000);
         
         connector.close();
         
         server.setConnectors(new Connector[]{connector});;
         
         server.start();
-        
+/*        
         final String scheme = latke.getString("serverScheme");
         final String host = latke.getString("serverHost");
 
@@ -115,7 +115,7 @@ public final class Starter {
             Desktop.getDesktop().browse(new URI(scheme + "://" + host + ":" + port + contextPath));
         } catch (final Throwable e) {
             e.printStackTrace();
-        }
+        }*/
 
         server.join();
     }
